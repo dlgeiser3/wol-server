@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express')
 const router = express.Router()
 const sequelize = require('../db');
@@ -10,12 +11,16 @@ const jwt = require('jsonwebtoken');
  *** USER SIGNUP ***
 ************************** */
 
-router.post('/user', function (req, res) {
-  let username = req.body.user.username;
+router.post('/signup', function (req, res) {
+  let firstName = req.body.user.firstName;
+  let lastName = req.body.user.lastName;
+  let email = req.body.user.email;
   let pass = req.body.user.password;
 
   User.create({
-    username: username,
+    firstName: firstName,
+    lastName: lastName,
+    email: email,
     passwordhash: bcrypt.hashSync(pass, 10)
   }).then(
     function createSuccess(user) {
@@ -39,7 +44,7 @@ router.post('/user', function (req, res) {
  *** USER LOGIN ***
 ************************** */
 
-router.post('/login', function (req, res) {
+router.post('/signin', function (req, res) {
   User.findOne({ where: { username: req.body.user.username } }).then(
     function (user) {
       if (user) {

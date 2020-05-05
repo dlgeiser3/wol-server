@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 app.use(require('./middleware/headers'));
 
 
-app.use('/api', user);
+app.use('/user', user);
 app.use('/api', log)
 
 app.listen(3000, function () {

@@ -1,3 +1,4 @@
+require('dotenv').config();
 var express = require('express');
 var router = express.Router();
 var sequelize = require('../db');
@@ -12,9 +13,9 @@ const validateSession = require('../middleware/validate-session');
 
 router.post('/log', validateSession, (req, res) => {
   const logRequest = {
-    description: req.body.log.description,
-    definition: req.body.log.definition,
-    result: req.body.log.result,
+    description: req.log.description,
+    definition: req.log.definition,
+    result: req.log.result,
     owner: req.user.id
   }
   Log.create(logRequest)
